@@ -2,7 +2,7 @@
 
 import lxml, urllib.request,time
 from bs4 import BeautifulSoup
-
+import io
 
 def getData(soup):
   #List to store the data
@@ -45,20 +45,17 @@ def makeUrl():
 
 
 def writeFile(seeData, titles, prices):     
-	#Writing the output to a file
-	print("Writing to file.....\n")
+    #Writing the output to a file
+    print("Writing to file.....\n")
 	
-	file = open('List.txt', 'w')
-	for i in range(len(titles)):
-	  if seeData=='y' :
-	    print(titles[i] + ' : ' + prices[i])
-	  file.write(str(i + 1) + '. ' + titles[i].encode("utf-8") + ' : ' + prices[i].encode("utf-8") + '\n')
-	file.close()
-
-	print("Finishing up...\n")
-	
-
-	print("Done, please check File.txt\n Also copy/rename file before next search!!!")
+    with io.open('List.txt', 'w', encoding = 'utf8') as file:
+        for i in range(len(titles)):
+            if seeData=='y' :
+              print(titles[i] + ' : ' + prices[i])
+            file.write(str(i + 1) + '. ' + titles[i] + ' : ' + prices[i] + '\n')
+        file.close()
+    print("Finishing up...\n")
+    print("Done, please check File.txt\n Also copy/rename file before next search!!!")
 
 
 def parseData(url):
